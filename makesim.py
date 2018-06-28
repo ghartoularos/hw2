@@ -3,7 +3,6 @@ import os
 import pandas as pd
 import numpy as np
 import siteio
-from utils import Atom, Residue, ActiveSite
 import Bio.SeqUtils
 convert = Bio.SeqUtils.IUPACData.protein_letters_3to1
 from scipy.spatial.distance import pdist
