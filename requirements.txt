@@ -1,0 +1,13 @@
+atomicwrites==1.1.5
+attrs==18.1.0
+biopython==1.72
+more-itertools==4.2.0
+numpy==1.14.5
+pandas==0.23.1
+pluggy==0.6.0
+py==1.5.4
+pytest==3.6.2
+python-dateutil==2.7.3
+pytz==2018.4
+scipy==1.1.0
+six==1.11.0
