@@ -1,5 +1,4 @@
 import argparse
-from tqdm import tqdm
 import os
 import pandas as pd
 import numpy as np
@@ -88,14 +87,12 @@ def compute_similarity(site_a, site_b, mat,
     b_atoms = []
 
     # Pull out the CA atoms from Biopython's PDB structure object
-    for site in site_a, site_b:
-        for chain in site:
-            for res in chain:
-                if site == site_a:
-                    a_atoms.append(res['CA'])
-                else:
-                    b_atoms.append(res['CA'])
-            break
+    for chain in site_a:
+        for res in chain:
+            a_atoms.append(res['CA'])
+    for chain in site_b:
+        for res in chain:
+            b_atoms.append(res['CA'])
 
     #trivial check:
     if len(a_atoms) == len(b_atoms): #  these might be the same site
@@ -140,6 +137,7 @@ def compute_similarity(site_a, site_b, mat,
         seq1 = ''.join([convert[j.parent.resname] for j in i[0]])
         seq2 = ''.join([convert[j.parent.resname] for j in i[1]])
         try:
+            # print(seq1,seq2)
             seqsim = seqdict[(seq1, seq2)]
         except:
             seqsim, seqdict = seq_simlarity(seq1, seq2, length, mat, seqdict)
@@ -151,6 +149,7 @@ def compute_similarity(site_a, site_b, mat,
     return sim
 
 if __name__ == "__main__":
+    from tqdm import tqdm
     parser = argparse.ArgumentParser(description="""
     Generate the similarity matrix.
     """, formatter_class=argparse.RawTextHelpFormatter)
