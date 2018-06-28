@@ -27,7 +27,6 @@ def test_similarity():
 
         activesite_a = siteio.read_active_site(filename_a)
         activesite_b = siteio.read_active_site(filename_a)
-
         sim = makesim.compute_similarity(activesite_a, activesite_b, mat, k, n, s)
         assert sim == 1
 
@@ -66,7 +65,7 @@ def test_hierarchical_clustering():
 
     Z = cluster.cluster_hierarchically(pdb_ids, simmat)
 
-# C = test_partition_clustering()
-# Z = test_hierarchical_clustering()
-# print(C)
-# print(Z)
+# # C = test_partition_clustering()
+# # Z = test_hierarchical_clustering()
+# # print(C)
+# # print(Z)

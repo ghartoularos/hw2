@@ -87,7 +87,7 @@ def cluster_by_partitioning(pdbs, simmat, k = 10):
 
     D, sitedict = make_subD(Dori,pdbs)
 
-    D = D.as_matrix()
+    D = D.values
     for i in range(len(D)):
         for j in range(i+1):
             if i == j:
@@ -178,10 +178,7 @@ def cluster_hierarchically(pdbs, simmat):
     Unfortunately it didn't work, so I just called a scipy function.
     """
 
-
-
-
-    # note this script will only work for min or max, not for any other linkage
+    # Note this script will only work for min or max, not for any other linkage
     def link(a,b): 
         new = min([a,b])
         return new
@@ -194,8 +191,8 @@ def cluster_hierarchically(pdbs, simmat):
         
         for iteration in range(len(D) - 1): # a clustering of n elements has n - 1 merges
             clusterings.append(copy(clusters))
-            flatind = np.argmin(D.as_matrix())
-            flatval = D.as_matrix().ravel()[flatind]
+            flatind = np.argmin(D.values)
+            flatval = D.values.ravel()[flatind]
             minrow, mincol = (flatind//len(D), flatind % len(D))
             # Just arbitrariliy keep the cluster represented by a lower index
             # Replace its values with those of the new cluster and delete the old cluster
@@ -250,18 +247,13 @@ def cluster_hierarchically(pdbs, simmat):
 
     clusterings = cluster(D)
 
-    # for i in clusterings:
-    #     print('')
-    #     for j in itertools.chain(i):
-    #         print(j)
-    #     input()
     '''
     Although the above algorithm works, the list of lists format is hard to
     resolve. Therefore, for comparisons to k-medoids and for quality checks,
     I'm going to use scipy's built in function.
     '''
 
-    D = D.as_matrix()
+    D = D.values
     for i in range(len(D)):
         for j in range(i+1):
             if i == j:
@@ -274,9 +266,5 @@ def cluster_hierarchically(pdbs, simmat):
     for i in range(len(Z)):
         for k in range(4):
             Znew[i][k] = int(Z[i][k])
-    # Z = [list(i) for i in sorted(Znew, key = lambda x: int(x[3]))]
-    # Fill in your code here!
-    # print(type(Z))
-    # print(Z[:10][:])
 
     return Z, sitedict
